@@ -1,12 +1,27 @@
 package map.domain;
 
-public class Person {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Person {
+	@Id
+	@GeneratedValue
 	private int id;
+	
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String password;
+
+	@Temporal(TemporalType.DATE)	
+	private String dateCreated;
 	
 	public String getFirstname() {
 		return firstname;
@@ -31,6 +46,12 @@ public class Person {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 	
 }
