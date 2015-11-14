@@ -9,9 +9,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name="user_type")
 public class Person {
 	
 	@Id
@@ -22,8 +25,8 @@ public class Person {
 	private String name;
 	private String photo;
 	private String email;
-	private String password;
-	
+	//private String password;
+
 	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
@@ -68,12 +71,12 @@ public class Person {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 	
 }

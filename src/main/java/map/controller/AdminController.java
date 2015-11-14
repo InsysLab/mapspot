@@ -46,6 +46,6 @@ public class AdminController {
 	@RequestMapping("/admin/user/edit/{id}")
 	public String editUser(@PathVariable("id")String id, Model model){
 		//TODO get user from db
-		return "admin/edituser";
+		return "admin/createUser";
 	}
 }
