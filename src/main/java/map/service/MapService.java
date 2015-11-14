@@ -1,5 +1,15 @@
 package map.service;
 
-public interface MapService {
+import java.util.List;
 
+import map.domain.Map;
+
+public interface MapService {
+	public List<Map> getAll();
+	
+	public void save(Map d);
+	
+	public Map findMap(Integer Id);
+	
+	public void deleteMapById(Integer Id);	
 }

@@ -12,6 +12,7 @@ public class MapSpot {
 	
 	private String description;
 	private String location;
+	private String photo;
 	
 	public String getDescription() {
 		return description;
@@ -25,5 +26,11 @@ public class MapSpot {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 }

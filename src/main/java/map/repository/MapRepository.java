@@ -1,5 +1,8 @@
 package map.repository;
 
-public class MapRepository {
+import org.springframework.data.repository.CrudRepository;
+import map.domain.Map;
+
+public interface MapRepository extends  CrudRepository<Map, Integer>{
 
 }
