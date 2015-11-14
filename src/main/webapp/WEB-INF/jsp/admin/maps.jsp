@@ -8,5 +8,15 @@
 </head>
 <body>
 	<h1>List of Maps</h1>
+	<h1>Users List</h1>
+	
+	<table>
+		<c:forEach var="map" items="${maps}">
+			<tr>
+				<td>${map.description }</td>
+				<td><a href="user/edit/${map.id}">Edit</a></td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>
