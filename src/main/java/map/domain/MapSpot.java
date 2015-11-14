@@ -3,12 +3,16 @@ package map.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 @Entity
+@Table(name="map_spot")
 public class MapSpot {
 	@Id
 	@GeneratedValue
-	private int id;
+	@Column(name="id")
+	private int spotId;
 	
 	private String description;
 	private String location;

@@ -8,16 +8,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Comment {
 	@Id
 	@GeneratedValue
-	private int id;
+	@Column(name="id")
+	private int commentId;
 	
-	private String comment;
-	//private Person user;
-	//private Map map;
+	@Column(name="comment")
+	private String commentText;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private Person user;
 	
 	@Column(name="date_created")
 	@Temporal(TemporalType.DATE)
@@ -25,29 +31,23 @@ public class Comment {
 	
 	public Comment(){}
 	
-	public String getComment() {
-		return comment;
+	public String getCommentText() {
+		return commentText;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
 	}
-//	public Person getUser() {
-//		return user;
-//	}
-//	public void setUser(Person user) {
-//		this.user = user;
-//	}
+	public Person getUser() {
+		return user;
+	}
+	public void setUser(Person user) {
+		this.user = user;
+	}
 	public Date getDateCreated() {
 		return dateCreated;
 	}
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-//	public Map getMap() {
-//		return map;
-//	}
-//	public void setMap(Map map) {
-//		this.map = map;
-//	}
 	
 }
