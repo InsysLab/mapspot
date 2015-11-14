@@ -38,9 +38,9 @@
 			</div>
 			<div style="clear:both"></div>
 		</div>
-		<div id="footer">
-			&copy; 2015.  All rights reserved.
-		</div>
 	</div>
+	<div id="footer">
+		&copy; 2015.  All rights reserved.
+	</div>	
 </body>
 </html>
