@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.CascadeType;
 
 @Entity
 public class Map {
@@ -22,15 +26,28 @@ public class Map {
 	
 	private String description;
 	private String permalink;
+	
+	@Column(name="public")
 	private Boolean isPublic;
+	
+	@Column(name="blocked")
 	private Boolean isBlocked;
 	
-//	private List<MapSpot> spots = new ArrayList<MapSpot>();
-//	private List<Comment> comments = new ArrayList<Comment>();
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="map_id")
+	private List<MapSpot> spots = new ArrayList<MapSpot>();
 
-//	@ManyToMany(mappedBy="maps")
-//	@JoinTable(name="user_maps")
-//	private List<User> users = new ArrayList<User>();
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="map_id")
+	private List<Comment> comments = new ArrayList<Comment>();
+
+    @ManyToMany(cascade=CascadeType.ALL)  
+    @JoinTable(name="shared_map_user", joinColumns=@JoinColumn(name="map_id"), inverseJoinColumns=@JoinColumn(name="user_id")) 
+	private List<User> sharedUsers = new ArrayList<User>();
+	
+	@ManyToOne
+	@JoinColumn(name="creator")
+	private User creator;
 	
 	@Column(name="date_created")
 	@Temporal(TemporalType.DATE)
@@ -66,31 +83,37 @@ public class Map {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-//	public List<User> getUsers() {
-//		return users;
-//	}
-//	public void setUsers(List<User> users) {
-//		this.users = users;
-//	}
-//	public List<Comment> getComments() {
-//		return comments;
-//	}
-//	public void setComments(List<Comment> comments) {
-//		this.comments = comments;
-//	}
-//	public void addComment(Comment comment){
-//		this.comments.add(comment);
-//	}
-//	public void addUser(User user){
-//		this.users.add(user);
-//	}
-//	public List<MapSpot> getSpots() {
-//		return spots;
-//	}
-//	public void setSpots(List<MapSpot> spots) {
-//		this.spots = spots;
-//	}
-//	public void addSpot(MapSpot spot){
-//		this.spots.add(spot);
-//	}
+	public List<User> getSharedUsers() {
+		return sharedUsers;
+	}
+	public void setSharedUsers(List<User> users) {
+		this.sharedUsers = users;
+	}
+	public void addSharedUser(User user){
+		this.sharedUsers.add(user);
+	}
+	public User getCreator() {
+		return creator;
+	}
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}	
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	public void addComment(Comment comment){
+		this.comments.add(comment);
+	}
+	public List<MapSpot> getSpots() {
+		return spots;
+	}
+	public void setSpots(List<MapSpot> spots) {
+		this.spots = spots;
+	}
+	public void addSpot(MapSpot spot){
+		this.spots.add(spot);
+	}
 }
