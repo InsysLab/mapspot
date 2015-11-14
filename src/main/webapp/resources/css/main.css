@@ -1,0 +1,42 @@
+body{
+	font-family: arial,sans-serif;
+	font-size: small;
+}
+a {
+	text-decoration: none;
+}
+#page-container{
+	width: 74%;
+	margin: 0 auto;
+}
+#header{
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+.login-box{
+	margin-top: 20px;
+}
+#home-container {
+	padding-top: 100px;
+	min-height: 450px;
+}
+#page-container #home-container img{
+	width:450px;
+	padding: 3px;
+	border: 1px solid #eee;
+	height: 200px;
+}
+#page-container #header .login-box{
+	float: right;
+	margin-right: 100p;
+}
+.title{
+	color: #1a0dab;
+	font-size: 18px;
+	font-weight: normal;
+}
+#footer{
+	width: 100%;
+	display:block;
+	text-align: center;
+}
