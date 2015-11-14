@@ -7,6 +7,6 @@
 <title>Edit Map</title>
 </head>
 <body>
-
+	${filePath}
 </body>
 </html>

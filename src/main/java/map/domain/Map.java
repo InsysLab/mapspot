@@ -53,6 +53,12 @@ public class Map {
 	@Temporal(TemporalType.DATE)
 	private Date dateCreated;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getDescription() {
 		return description;
 	}
