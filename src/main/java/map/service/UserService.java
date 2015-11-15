@@ -10,5 +10,7 @@ public interface UserService {
 	
 	public User findUser(Integer Id);
 	
-	public void deleteUserById(Integer Id);	
+	public void deleteUserById(Integer Id);
+	
+	public long getUserByUsername(String username);
 }

@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findOne(Id);
 		userRepository.delete(user);
 	}
+	
+	public long getUserByUsername(String username){
+		System.out.println("print");
+		return userRepository.countByUsername(username);
+	}
 }
