@@ -1,51 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-	<security:global-method-security pre-post-annotations="enabled"/>	
-	<security:http use-expressions="true">
-	
-	<!-- Need to redirect exception for web authorization -->
-	<security:access-denied-handler error-page="/error-forbidden" />
-	
-	 	 
- 		<security:form-login  login-page="/login" 
-				login-processing-url="/postLogin"
-				username-parameter="username" 
-				password-parameter="password"
- 			    default-target-url="/"    
-               always-use-default-target="true"   
-               authentication-failure-url="/loginfailed"/>
-         <security:logout logout-success-url="/logout"  logout-url= "/doLogout"/>
-        
-	</security:http>
-	
+	<http auto-config="true">
 
- <!-- <security:authentication-manager>
-		<security:authentication-provider>
-			<security:password-encoder hash="bcrypt" />
-			<security:jdbc-user-service
-				data-source-ref="dataSource"
-				users-by-username-query="select username,password,enabled from users where username=?"
-				authorities-by-username-query="select u1.username, u2.authority from users u1, authorities u2 where u1.username = u2.username and u1.username =?" />
-		</security:authentication-provider>
-	</security:authentication-manager>
- -->
+		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
+		<!-- <intercept-url pattern="/student/editProfile" access="hasRole('ROLE_STUDENT')" 
+			/> <intercept-url pattern="/professor/editProfessor" access="hasRole('ROLE_PROFESSOR')" 
+			/> -->
+		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 
-<!-- 	 <security:authentication-manager>
-		<security:authentication-provider>
-			<security:password-encoder hash="plaintext" />
-			<security:user-service>
-				<security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
-				<security:user name="guest" password="guest" authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>   -->
-</beans>
+		<form-login login-page="/login" default-target-url="/admin"
+			authentication-failure-url="/accessdenied" login-processing-url="/j_spring_security_check" />
+
+		<csrf disabled="true" />
+	</http>
+
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="
+         SELECT USERNAME, PASSWORD, ENABLED FROM PERSON WHERE USERNAME=?"
+				authorities-by-username-query="
+        SELECT u.USERNAME, u.ROLE FROM Person u WHERE u.USERNAME=? " />
+		</authentication-provider>
+	</authentication-manager>
+
+
+</beans:beans>

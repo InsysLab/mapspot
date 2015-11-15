@@ -8,6 +8,8 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
@@ -26,14 +28,17 @@ public class User extends Person {
 	private String username;
 	@NotEmpty
 	private String password;
+	@Enumerated(EnumType.STRING)
 	private Role role;
-
-	@OneToMany(cascade = CascadeType.ALL)
+	private boolean enabled;
+	
+	@OneToMany(cascade = CascadeType.ALL)	
 	@JoinColumn(name = "map_id")
 	private List<Map> maps = new ArrayList<Map>();
 
 	public User() {
 		this.role = Role.ROLE_USER;
+		this.enabled = true;
 	}
 
 	public User(String name, String photo, Date birth, String username, String password) {
@@ -74,6 +79,14 @@ public class User extends Person {
 
 	public void setMaps(List<Map> maps) {
 		this.maps = maps;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }
