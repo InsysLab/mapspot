@@ -12,46 +12,50 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
 
 @Entity
-@DiscriminatorValue(value="normal")
-public class User extends Person{
-
+@DiscriminatorValue(value = "normal")
+public class User extends Person {
+	@NotEmpty
 	private String username;
+	@NotEmpty
 	private String password;
 	private Role role;
-	
-    @OneToMany(cascade=CascadeType.ALL)  
-    @JoinColumn(name="map_id")
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "map_id")
 	private List<Map> maps = new ArrayList<Map>();
 
-	public User(){
+	public User() {
 		this.role = Role.ROLE_USER;
 	}
-	
-	public User(String name, String photo, Date birth, String username, String password){
+
+	public User(String name, String photo, Date birth, String username, String password) {
 		this.setName(name);
 		this.setPhoto(photo);
 		this.setDateOfBirth(birth);
 		this.username = username;
 		this.password = password;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -71,5 +75,5 @@ public class User extends Person{
 	public void setMaps(List<Map> maps) {
 		this.maps = maps;
 	}
-	
+
 }

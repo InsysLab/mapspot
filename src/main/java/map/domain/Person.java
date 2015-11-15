@@ -8,6 +8,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -21,7 +24,7 @@ public class Person {
 	@GeneratedValue
 	@Column(name="id")
 	private int personId;
-	
+	@NotEmpty
 	private String name;
 	private String photo;
 	private String email;
