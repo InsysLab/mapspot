@@ -21,6 +21,10 @@ a {
 	padding-top: 100px;
 	min-height: 420px;
 }
+#content-container {
+	padding-top: 30px;
+	min-height: 420px;
+}
 #page-container #home-container img{
 	width:450px;
 	padding: 3px;

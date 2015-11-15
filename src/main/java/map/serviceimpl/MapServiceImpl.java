@@ -21,8 +21,8 @@ public class MapServiceImpl implements MapService{
 		return (List<Map>) mapRepository.findAll();
 	}
 	
-	public void save(Map map){
-		mapRepository.save(map);
+	public Map save(Map map){
+		return mapRepository.save(map);
 	}
 	
 	public Map findMap(Integer Id){
