@@ -40,6 +40,7 @@ public class AdminController {
 	public String listMaps(Model model) {
 		// TODO get list of maps
 		model.addAttribute("maps", mapService.getAll());
+		System.out.println(mapService.getAll());
 		return "admin/maps";
 	}
 
@@ -61,7 +62,7 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/user/edit/{id}")
-	public String editUser(@PathVariable("id") int id, Model model) {
+	public String editUser(@PathVariable("id") int id, @ModelAttribute("User") User user, Model model) {
 		// TODO get user from db
 		model.addAttribute("user", userService.findUser(id));
 		return "admin/editUser";
