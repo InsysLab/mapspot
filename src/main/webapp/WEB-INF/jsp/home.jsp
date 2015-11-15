@@ -18,8 +18,8 @@
 			</div>
 			
 			<div class="login-box">
-				<a href="signin">Sign-In</a> | 
-				<a href="signup">Sign-Up</a>
+				<a href="<spring:url value='/login'/>" >Sign-In</a> | 
+				<a href="<spring:url value='/signup'/>" >Sign-Up</a>
 			</div>
 			<div style="clear:both"></div>
 		</div>
