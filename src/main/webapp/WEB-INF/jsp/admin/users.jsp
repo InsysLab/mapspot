@@ -16,6 +16,11 @@
 				<td>${user.name }</td>
 				<td>${user.username}</td>
 				<td><a href="user/edit/${user.personId}">Edit</a></td>
+				<td>
+					<form action="user/delete/${user.personId}" method="post">
+						<input type="submit" onclick="confirm('Are you sure?')" value="delete" />
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

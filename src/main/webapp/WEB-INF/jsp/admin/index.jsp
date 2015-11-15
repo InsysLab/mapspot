@@ -9,8 +9,8 @@
 <body>
 	<h1>Admin default page</h1>
 	<ul>
-		<li><a href="admin/users">View Users</a></li>
-		<li><a href="admin/maps">View Maps</a></li>
+		<li><a href="../admin/users">View Users</a></li>
+		<li><a href="../admin/maps">View Maps</a></li>
 	</ul>
 </body>
 </html>

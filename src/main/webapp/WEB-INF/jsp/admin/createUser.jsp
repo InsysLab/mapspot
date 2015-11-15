@@ -8,10 +8,30 @@
 <title>Add user</title>
 </head>
 <body>
-	<form action="../../createUser">
-		<input type="hidden" value="${user.personId}" /> <input type="text"
-			name="name" value="${user.name}" /> <input type="submit"
-			value="Save" />
+	<form action="../admin/createUser" method="post">
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="name" value="${user.name}" /></td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td><input type="text" name="username" value="${user.username}" /></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="text" name="password" value="${user.password}" /></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input type="text" name="email" value="${user.email}" /></td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Save" /></td>
+			</tr>
+		</table>
 	</form>
 </body>
 </html>
