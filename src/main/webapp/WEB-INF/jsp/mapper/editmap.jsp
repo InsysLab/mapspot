@@ -70,6 +70,10 @@
 	</div>
 	<div id="footer">&copy; 2015. All rights reserved.</div>
 	
+	
+	<input type="hidden" id="mapId" value="${map.mapId}" />
+	<input type="hidden" id="spotCount" value="${fn:length(spots)}" />
+	
 <script>
 	$(document).ready(function() {
 		var spot = $("#spotCount").val();
