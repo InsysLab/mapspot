@@ -22,10 +22,12 @@ public class Map {
 
 	@Id
 	@GeneratedValue	
-	private int id;
+	@Column(name="id")
+	private int mapId;
 	
 	private String description;
 	private String permalink;
+	private String photo;
 	
 	@Column(name="public")
 	private Boolean isPublic;
@@ -53,11 +55,11 @@ public class Map {
 	@Temporal(TemporalType.DATE)
 	private Date dateCreated;
 	
-	public int getId() {
-		return id;
+	public int getMapId() {
+		return mapId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setMapId(int mapId) {
+		this.mapId = mapId;
 	}
 	public String getDescription() {
 		return description;
@@ -70,6 +72,12 @@ public class Map {
 	}
 	public void setPermalink(String permalink) {
 		this.permalink = permalink;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	public Boolean getIsPublic() {
 		return isPublic;

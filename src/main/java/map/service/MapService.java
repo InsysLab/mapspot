@@ -7,7 +7,7 @@ import map.domain.Map;
 public interface MapService {
 	public List<Map> getAll();
 	
-	public void save(Map d);
+	public Map save(Map d);
 	
 	public Map findMap(Integer Id);
 	
