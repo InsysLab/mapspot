@@ -13,13 +13,14 @@
 <body>
 	<h1>Admin default page</h1>
 	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-					<sec:authentication property="principal.username" /> | 
+		<sec:authentication property="principal.username" /> | 
 					<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
-				</sec:authorize>
+	</sec:authorize>
 	<ul>
-		<spring:url value="/admin/users" var="users"></spring:url>
+		<spring:url value="/admin/" var="users"></spring:url>
 		<spring:url value="/admin/maps" var="maps"></spring:url>
-		<li><a href="${users }">View Users</a></li>
+		<li><a href="${users }users">View  Users</a></li>
+		<li><a href="${users }adminusers">View Admin Users</a></li>
 		<li><a href="${maps }">View Maps</a></li>
 	</ul>
 </body>

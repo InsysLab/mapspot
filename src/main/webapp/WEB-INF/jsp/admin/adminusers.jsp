@@ -11,10 +11,10 @@
 <link rel="stylesheet" type="text/css" href="${abc}"></link>
 </head>
 <body>
-	<h1>Users List</h1>
-	<a href="createUser">Create a User</a>
+	<h1>Admin Users List</h1>
+	<a href="createAdminUser">Create a User</a>
 	<table>
-		<tr class="header">
+	<tr class="header">
 			<th>Name</th>
 			<th>Username</th>
 			<th>Email</th>
@@ -26,11 +26,11 @@
 			<tr>
 				<td>${user.name }</td>
 				<td>${user.username}</td>
-				<td>${user.email}</td>
 				<td>${user.enabled}</td>
-				<td><a href="user/edit/${user.personId}">Edit</a></td>
+				<td>${user.email}</td>				
+				<td><a href="adminuser/edit/${user.personId}">Edit</a></td>
 				<td>
-					<form action="user/delete/${user.personId}" method="post">
+					<form action="adminuser/delete/${user.personId}" method="post">
 						<input type="submit" onclick="confirm('Are you sure?')"
 							value="delete" />
 					</form>

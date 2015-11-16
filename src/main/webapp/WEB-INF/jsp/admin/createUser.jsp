@@ -37,7 +37,7 @@
 				<td>Email</td>
 				<td><form:input type="text" path="email" /></td>
 				<td><form:errors path="email" cssClass="errorblock"></form:errors></td>
-			</tr>
+			</tr>			
 			<tr>
 				<td></td>
 				<td><input type="submit" value="Save" /></td>

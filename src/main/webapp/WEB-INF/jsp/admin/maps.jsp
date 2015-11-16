@@ -8,12 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>List of Maps</title>
+<spring:url value="/resources/css/admin.css" var="abc"></spring:url>
+<link rel="stylesheet" type="text/css" href="${abc}"></link>
 </head>
 <body>
 	<h1>List of Maps</h1>
 	<spring:url value="/mapblock/" var="mapUrl"></spring:url>
 	<table>
-		<tr>
+		<tr class="header">
 			<td>Map Description</td>
 			<td>Blocked</td>
 			<td>Public</td>

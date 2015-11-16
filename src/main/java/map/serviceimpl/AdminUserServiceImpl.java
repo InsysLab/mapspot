@@ -38,5 +38,10 @@ public class AdminUserServiceImpl implements AdminUserService {
 	public void deleteUserById(Integer id) {
 		repository.delete(repository.findOne(id));
 	}
+	
+	@Override
+	public long getUserByUsername(String username){
+		return repository.countByUsername(username);
+	}
 
 }

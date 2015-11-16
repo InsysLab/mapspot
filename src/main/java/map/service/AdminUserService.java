@@ -12,4 +12,5 @@ public interface AdminUserService {
 	public AdminUser findUser(Integer Id);
 
 	public void deleteUserById(Integer Id);
+	public long getUserByUsername(String username);
 }

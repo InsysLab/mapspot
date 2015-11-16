@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public long getUserByUsername(String username){
-		System.out.println("print");
 		return userRepository.countByUsername(username);
 	}
 }

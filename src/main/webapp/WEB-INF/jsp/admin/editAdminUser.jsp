@@ -14,7 +14,7 @@
 </style>
 </head>
 <body>
-	<spring:url value="/admin/createUser" var="abc"></spring:url>
+	<spring:url value="/admin/createAdminUser" var="abc"></spring:url>
 	<h2>Edit user</h2>
 	<form:form commandName="User" action="${abc }" method="post">
 		<form:input type="hidden" path="personId" value="${user.personId }" />
@@ -44,9 +44,9 @@
 			</tr>
 			<tr>
 				<td>Enabled</td>
-				<td><form:checkbox path="enabled" value="${user.enabled}" /></td>
+				<td><td><form:checkbox path="enabled" value="${user.enabled}" /></td></td>
 				<td><form:errors path="enabled" cssClass="errorblock"></form:errors></td>
-			</tr>			
+			</tr>	
 			<tr>
 				<td></td>
 				<td><input type="submit" value="Save" /></td>
