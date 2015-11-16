@@ -107,4 +107,12 @@ public class MapperController {
 		return spot;
     }
 		
+	@RequestMapping(value="view-map/{mapId}", method=RequestMethod.GET)
+	public String viewPublicMap(@PathVariable("mapId") Integer mapId, Model model){
+		Map map = mapService.findMap(mapId);
+		model.addAttribute("map", map);
+		model.addAttribute("spots", map.getSpots());
+		
+		return "mapper/viewPublicMap";
+	}
 }

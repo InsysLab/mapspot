@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,14 +13,25 @@
 <body>
 	<div id="page-container">
 		<div id="header">
-			<div style="float:left">
+			<div style="float: left">
 				<h2>MapSpot</h2>
 			</div>
-			
-			<div class="logout-box">
-				<a href="logout">Logout</a>
+
+			<div class="login-box">
+				<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+					<a href="../map-list">Maps</a> | 
+					<a href="../create-map">Create</a> | 
+					<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+				</sec:authorize>
+				<sec:authorize access="isAnonymous()">
+					<td>
+						<a href="<spring:url value='/login'/>">Sign-In</a> | <a
+						href="<spring:url value='/signup'/>">Sign-Up</a>
+					</td>
+				</sec:authorize>
+
 			</div>
-			<div style="clear:both"></div>
+			<div style="clear: both"></div>
 		</div>
 		<div id="home-container">
 			<p>
