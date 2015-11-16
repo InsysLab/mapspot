@@ -86,7 +86,7 @@ public class AdminController {
 	}
 
 	private long checkDuplicateUser(String username) {
-		return userService.getUserByUsername(username);
+		return userService.getUserCountByUsername(username);
 	}
 
 	@RequestMapping("/admin/adminusers")
