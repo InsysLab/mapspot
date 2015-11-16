@@ -4,6 +4,8 @@ import java.util.List;
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
+import java.security.Principal;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -28,10 +30,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.apache.commons.io.IOUtils;
 
+import map.domain.User;
 import map.domain.Map;
 import map.domain.MapSpot;
 import map.service.MapService;
 import map.service.MapSpotService;
+import map.service.UserService;
 
 @Controller
 public class MapperController {
@@ -45,23 +49,32 @@ public class MapperController {
 	@Autowired
 	MapSpotService mapSpotService;
 	
-	@RequestMapping(value={"map-list/{userId}"}, method = RequestMethod.GET)
-	public String userMaps(@PathVariable("userId") Integer userId, Model model){
-		List<Map> mapList = mapService.findMapByUserId(userId);
+	@Autowired
+	UserService userService;
+	
+	@RequestMapping(value={"map-list"}, method = RequestMethod.GET)
+	public String userMaps( Model model, Principal principal){
+		User user = userService.findUserByUsername(principal.getName());
+		List<Map> mapList = mapService.findMapByUserId(user.getPersonId());
+		
 		model.addAttribute("maps", mapList);
-		return "mapList";
+		return "mapper/mapList";
 	}
 	
 	@RequestMapping(value={"create-map"}, method = RequestMethod.GET)
-	public String createMap(Model model, HttpSession session){
+	public String createMap(Model model, HttpSession session, Principal principal){
+		User user = userService.findUserByUsername(principal.getName());
+		
 		Map map = new Map();
+		map.setCreator(user);
 		map = mapService.save(map);
+		
 		session.setAttribute("map", map.getMapId());		
 		return "redirect:map-upload"; 
 	}
 	
 	@RequestMapping(value="map-edit/{id}", method = RequestMethod.GET)
-	public String editMap(@PathVariable("id") Integer mapId, Model model, HttpSession session){
+	public String editMap(@PathVariable("id") Integer mapId, Model model){
 		Map map = mapService.findMap(mapId);
 		model.addAttribute("map", map);
 		model.addAttribute("spots", map.getSpots());

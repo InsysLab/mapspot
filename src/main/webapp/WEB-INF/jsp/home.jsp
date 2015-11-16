@@ -22,11 +22,16 @@
 
 			<div class="login-box">
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-					<sec:authentication property="principal.username" /> | <a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+					Hi <sec:authentication property="principal.username" />! | 
+					<a href="map-list">Maps</a> | 
+					<a href="create-map">Create</a> | 
+					<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
-					<td><a href="<spring:url value='/login'/>">Sign-In</a> | <a
-						href="<spring:url value='/signup'/>">Sign-Up</a></td>
+					<td>
+						<a href="<spring:url value='/login'/>">Sign-In</a> | <a
+						href="<spring:url value='/signup'/>">Sign-Up</a>
+					</td>
 				</sec:authorize>
 
 			</div>

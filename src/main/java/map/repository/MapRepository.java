@@ -12,7 +12,7 @@ import map.domain.Map;
 @Repository
 public interface MapRepository extends  CrudRepository<Map, Integer>{
 
-	@Query("SELECT m FROM Map m WHERE m.creator = :userId")
+	@Query("SELECT m FROM Map m WHERE m.creator.personId = :userId")
 	List<Map> findMapByCreator(@Param(value = "userId") Integer userId);
-	
+
 }

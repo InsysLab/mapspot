@@ -13,4 +13,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
 	@Query("select count(u) from User u where u.username = :username")
 	public long countByUsername(@Param("username") String username);
+	
+	@Query("select u from User u where u.username =:username")
+	User findUserByUsername(@Param("username") String username);
+	
 }

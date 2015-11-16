@@ -34,7 +34,12 @@ public class UserServiceImpl implements UserService {
 		userRepository.delete(user);
 	}
 	
-	public long getUserByUsername(String username){
+	public long getUserCountByUsername(String username){
+		System.out.println("print");
 		return userRepository.countByUsername(username);
 	}
+	
+	public User findUserByUsername(String username){
+		return userRepository.findUserByUsername(username);
+	}	
 }
