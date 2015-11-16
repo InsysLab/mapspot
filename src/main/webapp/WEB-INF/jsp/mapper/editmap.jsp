@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,6 +14,8 @@
 </head>
 <body>
 	<div id="page-container">
+		<input type="hidden" id="mapId" value="${map.mapId}" />
+		<input type="hidden" id="spotCount" value="${fn:length(spots)}" />
 		<div id="header">
 			<div style="float:left">
 				<h2>MapSpot</h2>
@@ -25,30 +28,69 @@
 		</div>
 		Map Editor
 		<div id="content-container">
+			<label for="description">Description</label>
+			<input type="text" name="description" id="description" value="${map.description}"/> 
+			<br/><br/>
+			
 			Click on a spot to make a label.
-			<div id="map-image" style="position:relative;left:0;top:0;maxwidth:800;">
-				<img id="mapImage" src="../map-image/${map.mapId}" style="position:relative;left:0;top:0"/>
+			<div id="map-image" style="position:relative;left:0;top:0;">
+				<img id="mapImage" src="../map-image/${map.mapId}" style="position:relative;left:0;top:0;width:700px;"/>
 			</div>
 			
 			<img id="spotIcon" src="/mapspot/resources/images/spot.png" style="position:absolute;display:none"/>
 			
-			<div id="spotList" style="width:100%;margin-top:15px;">
+			<div id="spotList">
 				
 				<div id="spotTemplate" style="display:none">
 					<label for="spot-number"></label>
 					<input type="text" value="" style="width:200px"/>
 				</div>
+				
+				<c:set var="count" value="1" scope="page" />
+				<c:forEach var="spot" items = "${spots}">
+					<div>
+						<label for="spot-number"><c:out value="${count}" /></label>
+						<input type="text" value="${spot.description}" style="width:200px" data-location="${spot.location}"/>
+					</div>
+					<c:set var="count" value="${count + 1}" scope="page"/>
+				</c:forEach>		
+				
 			</div> <br/>
-			<button id="saveMap">Save</button>
 		</div>	
 	</div>
 	<div id="footer">
 		&copy; 2015.  All rights reserved.
 	</div>
-			
+	
 <script>
 	$(document).ready(function() {
-		var spot = 1;
+		var spot = $("#spotCount").val();
+		
+		if( spot > 0 ){
+			$("#spotList input").each(function(key){
+				if( $(this).attr("data-location") ){
+					spotLocation = $(this).attr("data-location").split(",");
+					description = $(this).val();
+					
+					spotLeft = parseInt(spotLocation[0]);
+					spotTop = parseInt(spotLocation[1]);
+					spId = "spot" + (key + 1);
+					console.log(spotLeft);
+					console.log(spotTop);
+					
+					$("#spotIcon").clone()
+		  			  .attr("id", spId)
+		  			  .css("left", spotLeft)
+		  			  .css("top", spotTop)
+		  			  .css("display", "block")
+		  			  .appendTo("#map-image");
+					
+					$("#" + spId).wrap("<a class=\"spot\" style=\"cursor:pointer\" title=\"" + description + "\"></a>");
+				}
+			});	
+		}
+		
+		spot++;
 		var iconWidth = 0;
 		var iconHeight = 0;
 		
@@ -75,7 +117,7 @@
 		    
 		    var spotDescription = prompt("Enter spot description", "");
 		      
-		    if(spotDescription != null || spotDescription != ""){
+		    if(spotDescription){
 		    	$("#"+spotId).wrap("<a class=\"spot\" style=\"cursor:pointer\" title=\"" + spotDescription + "\"></a>");	
 		    	
 		    	$("#spotTemplate").clone()
@@ -86,10 +128,60 @@
 		    	$("#"+spotId + "-detail").find("label").html(spot);
 		    	$("#"+spotId + "-detail").find("input").attr("value", spotDescription);
 		    	
+		    	var newSpot = {};
+		    	newSpot["description"] = spotDescription;
+		    	newSpot["location"] = spotLeft + "," + spotTop;
+		    	var mapId = $("#mapId").val();
+		    	
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "../create-spot/"+mapId,
+					data : JSON.stringify(newSpot),
+					dataType : 'json',
+					timeout : 100000,
+					success : function(data) {
+						console.log("Map spot created: ", data);
+					},
+					error : function(e) {
+						console.log("ERROR: ", e);
+						display(e);
+					},
+					done : function(e) {
+						console.log("DONE");
+						enableSearchButton(true);
+					}
+				});
+		    	
 		    	spot++;
 		    } else { $("#"+spotId).hide().destroy(); }
 	    });
 	    
+	    $("#description").on("blur", function(){
+	    	var map = {};
+	    	map["description"] = $(this).val();
+	    	var mapId = $("#mapId").val();
+	    	
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "../update-map/"+mapId,
+				data : JSON.stringify(map),
+				dataType : 'json',
+				timeout : 100000,
+				success : function(data) {
+					console.log("Map updated: ");
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+					display(e);
+				},
+				done : function(e) {
+					console.log("DONE");
+					enableSearchButton(true);
+				}
+			});
+	    })
 	});
 </script>
 </body>

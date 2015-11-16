@@ -1,5 +1,6 @@
 package map.controller.mapper;
 
+import java.util.List;
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +29,9 @@ import org.springframework.core.io.Resource;
 import org.apache.commons.io.IOUtils;
 
 import map.domain.Map;
+import map.domain.MapSpot;
 import map.service.MapService;
+import map.service.MapSpotService;
 
 @Controller
 public class MapperController {
@@ -38,7 +42,15 @@ public class MapperController {
 	@Autowired
 	ServletContext servletContext;
 	
-	public void userMaps(){}
+	@Autowired
+	MapSpotService mapSpotService;
+	
+	@RequestMapping(value={"map-list/{userId}"}, method = RequestMethod.GET)
+	public String userMaps(@PathVariable("userId") Integer userId, Model model){
+		List<Map> mapList = mapService.findMapByUserId(userId);
+		model.addAttribute("maps", mapList);
+		return "mapList";
+	}
 	
 	@RequestMapping(value={"create-map"}, method = RequestMethod.GET)
 	public String createMap(Model model, HttpSession session){
@@ -52,7 +64,34 @@ public class MapperController {
 	public String editMap(@PathVariable("id") Integer mapId, Model model, HttpSession session){
 		Map map = mapService.findMap(mapId);
 		model.addAttribute("map", map);
+		model.addAttribute("spots", map.getSpots());
 		return "mapper/editmap";
 	}
 
+	@ResponseBody
+	@RequestMapping(value="update-map/{mapId}", method=RequestMethod.POST, 
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Map updateMap(@PathVariable("mapId") Integer mapId, @RequestBody Map m) {
+		Map map = mapService.findMap(mapId);
+		
+		map.setDescription(m.getDescription());
+		mapService.save(map);
+		map.setSpots(null);
+		
+		return map;
+    }	
+	
+	@ResponseBody
+	@RequestMapping(value="create-spot/{mapId}", method=RequestMethod.POST, 
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public MapSpot createMapSpot(@PathVariable("mapId") Integer mapId, @RequestBody MapSpot spot) {
+		Map map = mapService.findMap(mapId);
+		
+		spot.setMap(map);
+		spot = mapSpotService.save(spot);
+		spot.setMap(null);
+		
+		return spot;
+    }
+		
 }

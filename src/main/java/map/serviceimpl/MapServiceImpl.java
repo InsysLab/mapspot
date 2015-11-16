@@ -33,4 +33,8 @@ public class MapServiceImpl implements MapService{
 		Map map = mapRepository.findOne(Id);
 		mapRepository.delete(map);
 	}
+	
+	public List<Map> findMapByUserId(Integer userId){
+		return mapRepository.findMapByCreator(userId);
+	}
 }

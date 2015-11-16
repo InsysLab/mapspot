@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.CascadeType;
+import javax.persistence.PrePersist;
 
 @Entity
 public class Map {
@@ -35,8 +37,7 @@ public class Map {
 	@Column(name="blocked")
 	private Boolean isBlocked;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="map_id")
+	@OneToMany(mappedBy="map", fetch = FetchType.EAGER)
 	private List<MapSpot> spots = new ArrayList<MapSpot>();
 
 	@OneToMany(cascade=CascadeType.ALL)
@@ -54,6 +55,11 @@ public class Map {
 	@Column(name="date_created")
 	@Temporal(TemporalType.DATE)
 	private Date dateCreated;
+	
+	@PrePersist
+	protected void onCreate() {
+	    this.dateCreated = new Date();
+	}
 	
 	public int getMapId() {
 		return mapId;

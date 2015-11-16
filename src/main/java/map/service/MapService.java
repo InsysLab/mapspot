@@ -12,4 +12,6 @@ public interface MapService {
 	public Map findMap(Integer Id);
 	
 	public void deleteMapById(Integer Id);	
+	
+	public List<Map> findMapByUserId(Integer userId);
 }
