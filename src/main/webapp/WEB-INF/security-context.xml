@@ -9,12 +9,13 @@
 	<http auto-config="true">
 
 		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
+		<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
 		<!-- <intercept-url pattern="/student/editProfile" access="hasRole('ROLE_STUDENT')" 
 			/> <intercept-url pattern="/professor/editProfessor" access="hasRole('ROLE_PROFESSOR')" 
 			/> -->
 		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 
-		<form-login login-page="/login" default-target-url="/admin"
+		<form-login login-page="/login" default-target-url="/" 
 			authentication-failure-url="/accessdenied" login-processing-url="/j_spring_security_check" />
 
 		<csrf disabled="true" />
