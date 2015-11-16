@@ -13,21 +13,36 @@
 </head>
 <body>
 	<h1>List of Maps</h1>
+	<a href="../">Admin Home</a>
 	<spring:url value="/mapblock/" var="mapUrl"></spring:url>
 	<table>
 		<tr class="header">
-			<td>Map Description</td>
-			<td>Blocked</td>
-			<td>Public</td>
+			<th>Map Description</th>
+			<th>Blocked</th>
+			<th>Public</th>
+			<th></th>
 		</tr>
+		<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
+
 		<c:forEach var="map" items="${maps}">
 			<tr>
 				<td>${map.description}</td>
 				<td>${map.isBlocked}</td>
 				<td>${map.isPublic}</td>
-				<td><form:form action="${mapUrl}${map.id}">
-						<input type="submit" value="Block"
-							onclick="confirm('Are you sure?')" />
+				<td><form:form action="${mapUrl}${map.mapId}">
+						<c:set var="val" value="${map.isBlocked}" />
+						<c:choose>
+							<c:when test="${val == 'true'}">
+								<input type="submit" value="Unblock"
+									onclick="confirm('Are you sure?')" />
+							</c:when>
+							<c:otherwise>
+								<input type="submit" value="Block"
+									onclick="confirm('Are you sure?')" />
+							</c:otherwise>
+						</c:choose>
+
+
 					</form:form></td>
 			</tr>
 		</c:forEach>

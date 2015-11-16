@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import map.domain.AdminUser;
+import map.domain.Map;
 import map.domain.User;
 import map.service.*;
 import map.serviceimpl.UserServiceImpl;
@@ -105,7 +106,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/createAdminUser", method = RequestMethod.POST)
 	public String addAdminUser(@Valid @ModelAttribute("User") AdminUser user, BindingResult result) {
 
-		if (result.hasErrors()) { 
+		if (result.hasErrors()) {
 			// Load form
 			return "/admin/createAdminUser";
 		}
@@ -134,4 +135,15 @@ public class AdminController {
 		return adminUserService.getUserByUsername(username);
 	}
 
+	@RequestMapping("/mapblock/{id}")
+	public String mapBlock(@PathVariable("id") int id) {
+		Map map = mapService.findMap(id);
+		if (map.getIsBlocked()) {
+			map.setIsBlocked(false);
+		} else {
+			map.setIsBlocked(true);
+		}
+		mapService.save(map);
+		return "redirect:/admin/maps";
+	}
 }

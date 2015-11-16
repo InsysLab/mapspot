@@ -15,7 +15,7 @@
 </head>
 <body>
 	<spring:url value="/admin/createUser" var="abc"></spring:url>
-	<h2>Edit user</h2>
+	<h2>Edit Admin user</h2>
 	<form:form commandName="User" action="${abc }" method="post">
 		<form:input type="hidden" path="personId" value="${user.personId }" />
 		<form:errors path="*" cssClass="errorblock" element="div"></form:errors>
