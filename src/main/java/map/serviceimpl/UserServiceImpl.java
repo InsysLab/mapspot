@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import map.domain.User;
 import map.repository.UserRepository;
 import map.service.UserService;
+import map.utils.Utility;
 
 @Service
 @Transactional
@@ -22,6 +23,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public void save(User user){
+		String encodedPassword = Utility.hashPassword(user.getPassword()); 
+		user.setPassword(encodedPassword); 
 		userRepository.save(user);
 	}
 	

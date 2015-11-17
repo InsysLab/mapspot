@@ -28,7 +28,7 @@
 			<tr>
 				<td>${map.description}</td>
 				<td>${map.isBlocked}</td>
-				<td>${map.isPublic}</td>
+				<td>${map.isPublished}</td>
 				<td><form:form action="${mapUrl}${map.mapId}">
 						<c:set var="val" value="${map.isBlocked}" />
 						<c:choose>
