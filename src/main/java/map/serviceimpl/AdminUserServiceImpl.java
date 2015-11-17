@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import map.domain.AdminUser;
 import map.repository.AdminUserRepository;
 import map.service.AdminUserService;
+import map.utils.Utility;
 
 @Service
 @Transactional
@@ -25,6 +26,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	@Override
 	public void save(AdminUser user) {
+		String encodedPassword = Utility.hashPassword(user.getPassword()); 
+		user.setPassword(encodedPassword); 
+
 		repository.save(user);
 	}
 

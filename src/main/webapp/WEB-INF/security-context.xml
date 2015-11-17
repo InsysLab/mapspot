@@ -9,7 +9,7 @@
 	<http auto-config="true">
 		<intercept-url pattern="/view-map" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/map-image" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		
+
 		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
 		<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
 		<!-- <intercept-url pattern="/student/editProfile" access="hasRole('ROLE_STUDENT')" 
@@ -17,12 +17,14 @@
 			/> -->
 		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 
-		<form-login login-page="/login" default-target-url="/" authentication-failure-url="/accessdenied" login-processing-url="/j_spring_security_check" />
+		<form-login login-page="/login" default-target-url="/"
+			authentication-failure-url="/accessdenied" login-processing-url="/j_spring_security_check" />
 		<csrf disabled="true" />
 	</http>
 
 	<authentication-manager>
 		<authentication-provider>
+			<password-encoder hash="bcrypt" />
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="
          SELECT USERNAME, PASSWORD, ENABLED FROM PERSON WHERE USERNAME=?"
