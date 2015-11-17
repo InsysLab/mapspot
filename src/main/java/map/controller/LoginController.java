@@ -26,7 +26,7 @@ public class LoginController {
 	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
 	public String loginerror(Model model) {
 
-		model.addAttribute("error", "true");
+		model.addAttribute("errorMessage", "Invalid username or password");
 		return "login";
 	}
 
@@ -47,4 +47,9 @@ public class LoginController {
 		userService.save(user);
 		return "signup";
 	}
+	
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public String error(Model model) {
+		return "403";
+	}	
 }

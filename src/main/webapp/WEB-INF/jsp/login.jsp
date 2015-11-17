@@ -29,8 +29,8 @@
 		</div>
 		<div id="content-container">
 			<h2 id="banner">Sign-In</h2>  
-			<form name="f" action="<c:url value='j_spring_security_check'/>"
-						method="POST">
+			<span style="color:red">${errorMessage}</span>
+			<form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
 				<table>
 					<tr>
 						<td>Username:</td>
@@ -38,13 +38,13 @@
 					</tr>
 					<tr>
 						<td>Password:</td>
-						<td><input type='password' name='password'></td>
+						<td><input type='password' name='password'/></td>
 					</tr>
 					<tr>
 						<td colspan="2">&nbsp;</td>
 					</tr>
 					<tr>
-						<td colspan='2'><input name="submit" type="submit">&nbsp;<input name="reset" type="reset"></td>
+						<td colspan='2'><input name="submit" type="submit"/></td>
 					</tr>
 				</table>
 				
