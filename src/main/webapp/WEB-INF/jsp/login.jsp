@@ -28,7 +28,7 @@
 			<div style="clear: both"></div>
 		</div>
 		<div id="content-container">
-			<h1 id="banner">Login to Admin Security </h1>  
+			<h1 id="banner">Sign-In</h1>  
 			<form name="f" action="<c:url value='j_spring_security_check'/>"
 						method="POST">
 				<table>

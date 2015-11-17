@@ -19,8 +19,8 @@
 
 			<div class="login-box">
 				<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-					<a href="../map-list">Maps</a> | 
-					<a href="../create-map">Create</a> | 
+					<a href="map-list">Maps</a> | 
+					<a href="create-map">Create</a> | 
 					<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
@@ -41,6 +41,8 @@
 					<input type="submit" value="upload" />
 					<form:errors path="file" cssStyle="color: #ff0000;" />
 				</form:form>
+				
+				<button onclick="window.location='map-cancel'">Cancel</button>
 			</p>
 		</div>
 	</div>

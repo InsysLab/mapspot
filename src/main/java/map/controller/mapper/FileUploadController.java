@@ -53,9 +53,10 @@ public class FileUploadController{
 	public String getForm(Model model) {
 		FileUpload fileModel = new FileUpload();
 		model.addAttribute("file", fileModel);
+		
 		return "mapper/create";
 	}
-
+	
 	@RequestMapping(value="map-upload", method = RequestMethod.POST)
 	public String fileUploaded(FileUpload file, HttpSession session) {
 		
@@ -92,6 +93,13 @@ public class FileUploadController{
 		Path path = Paths.get("C:/mapspot/" + mapId + "/" + map.getPhoto());
 		byte[] data = Files.readAllBytes(path); 
 		return data;
+	}	
+	
+	@RequestMapping(value="map-cancel", method = RequestMethod.GET)
+	public String cancelMap(HttpSession session){
+		Map map = mapService.findMap((Integer)session.getAttribute("map"));
+		mapService.deleteMapById(map.getMapId());
+		return "redirect:/map-list";
 	}	
 	
 //	public String fileUploaded(Model model, @Validated File file, BindingResult result) {

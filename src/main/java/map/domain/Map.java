@@ -31,13 +31,13 @@ public class Map {
 	private String permalink;
 	private String photo;
 	
-	@Column(name="public")
-	private Boolean isPublic;
+	@Column(name="published")
+	private Boolean isPublished;
 	
 	@Column(name="blocked")
 	private Boolean isBlocked;
 	
-	@OneToMany(mappedBy="map", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="map", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<MapSpot> spots = new ArrayList<MapSpot>();
 
 	@OneToMany(cascade=CascadeType.ALL)
@@ -85,11 +85,11 @@ public class Map {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public Boolean getIsPublic() {
-		return isPublic;
+	public Boolean getIsPublished() {
+		return isPublished;
 	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
+	public void setIsPublished(Boolean isPublished) {
+		this.isPublished = isPublished;
 	}
 	public Boolean getIsBlocked() {
 		return isBlocked;

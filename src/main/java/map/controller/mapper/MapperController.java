@@ -1,34 +1,21 @@
 package map.controller.mapper;
 
 import java.util.List;
-import java.io.File;
-import java.io.InputStream;
-import java.io.IOException;
 import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.Resource;
-import org.apache.commons.io.IOUtils;
 
 import map.domain.User;
 import map.domain.Map;
@@ -53,11 +40,14 @@ public class MapperController {
 	UserService userService;
 	
 	@RequestMapping(value={"map-list"}, method = RequestMethod.GET)
-	public String userMaps( Model model, Principal principal){
+	public String userMaps( Model model, Principal principal, HttpServletRequest request){
 		User user = userService.findUserByUsername(principal.getName());
 		List<Map> mapList = mapService.findMapByUserId(user.getPersonId());
+		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 		
 		model.addAttribute("maps", mapList);
+		model.addAttribute("baseUrl", baseUrl);
+		
 		return "mapper/mapList";
 	}
 	
@@ -67,6 +57,8 @@ public class MapperController {
 		
 		Map map = new Map();
 		map.setCreator(user);
+		map.setIsBlocked(false);
+		map.setIsPublished(true);
 		map = mapService.save(map);
 		
 		session.setAttribute("map", map.getMapId());		
@@ -110,9 +102,59 @@ public class MapperController {
 	@RequestMapping(value="view-map/{mapId}", method=RequestMethod.GET)
 	public String viewPublicMap(@PathVariable("mapId") Integer mapId, Model model){
 		Map map = mapService.findMap(mapId);
-		model.addAttribute("map", map);
-		model.addAttribute("spots", map.getSpots());
 		
-		return "mapper/viewPublicMap";
+		if( map == null || map.getIsBlocked() || ! map.getIsPublished() ){
+			return "mapper/errorMap";
+		} else {
+		
+			model.addAttribute("map", map);
+			model.addAttribute("spots", map.getSpots());
+			
+			return "mapper/viewPublicMap";
+		}
 	}
+	
+	@RequestMapping(value="delete-map/{mapId}", method=RequestMethod.GET)
+	public String deleteMap(@PathVariable("mapId") Integer mapId){
+		Map map = mapService.findMap(mapId);
+		mapService.deleteMapById(map.getMapId());
+		
+		return "redirect:/map-list";
+	}
+	
+	@RequestMapping(value="publish-map/{mapId}", method=RequestMethod.GET)
+	public String publishMap(@PathVariable("mapId") Integer mapId){
+		Map map = mapService.findMap(mapId);
+		map.setIsPublished(true);
+		mapService.save(map);
+		
+		return "redirect:/map-list";
+	}	
+	
+	@RequestMapping(value="unpublish-map/{mapId}", method=RequestMethod.GET)
+	public String unpublishMap(@PathVariable("mapId") Integer mapId){
+		Map map = mapService.findMap(mapId);
+		map.setIsPublished(false);
+		mapService.save(map);
+		
+		return "redirect:/map-list";
+	}		
+	
+	@RequestMapping(value="block-map/{mapId}", method=RequestMethod.GET)
+	public String blockMap(@PathVariable("mapId") Integer mapId){
+		Map map = mapService.findMap(mapId);
+		map.setIsBlocked(true);
+		mapService.save(map);
+		
+		return "redirect:/map-list";
+	}	
+	
+	@RequestMapping(value="unblock-map/{mapId}", method=RequestMethod.GET)
+	public String unblockMap(@PathVariable("mapId") Integer mapId){
+		Map map = mapService.findMap(mapId);
+		map.setIsBlocked(false);
+		mapService.save(map);
+		
+		return "redirect:/map-list";
+	}		
 }

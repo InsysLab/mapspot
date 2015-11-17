@@ -35,20 +35,21 @@
 
 			</div>
 			<div style="clear: both"></div>
-		</div>
+		</div><br/>
 		Map Editor
 		<div id="content-container">
 			<label for="description">Description</label>
 			<input type="text" name="description" id="description" value="${map.description}"/> 
 			<br/><br/>
 			
-			Click on a spot to make a label.
+			<i>Click on a spot to make a label.</i>
 			<div id="map-image" style="position:relative;left:0;top:0;">
 				<img id="mapImage" src="../map-image/${map.mapId}" style="position:relative;left:0;top:0;width:700px;"/>
 			</div>
 			
 			<img id="spotIcon" src="/mapspot/resources/images/spot.png" style="position:absolute;display:none"/>
 			
+			<i>Spots:</i>
 			<div id="spotList">
 				
 				<div id="spotTemplate" style="display:none">
