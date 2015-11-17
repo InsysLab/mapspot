@@ -1,9 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,8 +27,8 @@
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<td>
-						<a href="<spring:url value='/login'/>">Sign-In</a> | <a
-						href="<spring:url value='/signup'/>">Sign-Up</a>
+						<a href="<spring:url value='/login'/>"><spring:message code="header.signin"/></a> | <a
+						href="<spring:url value='/signup'/>"><spring:message code="header.signup"/></a>
 					</td>
 				</sec:authorize>
 
@@ -39,18 +37,19 @@
 		</div>
 		<div id="home-container">
 			<div style="float: left">
-				<img
-					src="<spring:url value="/resources/images/samplemap/sample1.png"/>" />
-				<p>Upload image, add spot information, publish!</p>
+				<img src="<spring:url value="/resources/images/samplemap/sample1.png"/>" />
+				<p><spring:message code="home.message1"/></p>
 			</div>
 			<div style="float: right">
-				<img
-					src="<spring:url value="/resources/images/samplemap/sample2.png"/>" />
-				<p>Share or embed your maps!</p>
+				<img src="<spring:url value="/resources/images/samplemap/sample2.png"/>" />
+				<p><spring:message code="home.message2"/></p>
 			</div>
 			<div style="clear: both"></div>
 		</div>
 	</div>
-	<div id="footer">&copy; 2015. All rights reserved.</div>
+	<div id="footer">
+		Language : <a href="?language=en">English</a>|<a href="?language=fil_PH">Tagalog</a>
+		&copy; 2015. All rights reserved.
+	</div>
 </body>
 </html>
