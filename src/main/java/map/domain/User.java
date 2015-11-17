@@ -48,6 +48,4 @@ public class User extends Person {
 		this.maps = maps;
 	}
 
-	
-
 }

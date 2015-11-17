@@ -60,9 +60,28 @@
 						</c:if>
 					</td>		
 					<td>${baseUrl}/view-map/${map.mapId}</td>			
-					<td><a href="delete-map/${map.mapId}">Delete</a></td>
+					<td>
+						<button onclick="window.location='share-map/${map.mapId}'">Share</button>
+						<button onclick="window.location='delete-map/${map.mapId}'">Delete</button>
+					</td>
 				</tr>
 			</c:forEach>
+			
+			<c:forEach var="sm" items="${sharedMaps}">
+				<tr>
+					<td><a href="map-edit/${sm.map.mapId}">${sm.map.description}</a></td>
+					<td>
+						<c:if test="${sm.map.isPublished == false}">No</c:if>
+						<c:if test="${sm.map.isPublished == true}">Yes</c:if>
+					</td>
+					<td>
+						<c:if test="${sm.map.isBlocked == false}">No</c:if>
+						<c:if test="${sm.map.isBlocked == true}">Yes</c:if>
+					</td>		
+					<td>${baseUrl}/view-map/${sm.map.mapId}</td>
+					<td>Shared by ${sm.creator.name}</td>
+				</tr>
+			</c:forEach>			
 		</table>
 	</div>
 </div>

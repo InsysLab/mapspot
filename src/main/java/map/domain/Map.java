@@ -43,11 +43,11 @@ public class Map {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="map_id")
 	private List<Comment> comments = new ArrayList<Comment>();
-
-    @ManyToMany(cascade=CascadeType.ALL)  
-    @JoinTable(name="shared_map_user", joinColumns=@JoinColumn(name="map_id"), inverseJoinColumns=@JoinColumn(name="user_id")) 
-	private List<User> sharedUsers = new ArrayList<User>();
-	
+//
+//    @OneToMany(cascade=CascadeType.ALL)  
+//    @JoinColumn(name="msId")
+//	private List<MapSharedUser> sharedUsers = new ArrayList<MapSharedUser>();
+//	
 	@ManyToOne
 	@JoinColumn(name="creator")
 	private User creator;
@@ -103,15 +103,15 @@ public class Map {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	public List<User> getSharedUsers() {
-		return sharedUsers;
-	}
-	public void setSharedUsers(List<User> users) {
-		this.sharedUsers = users;
-	}
-	public void addSharedUser(User user){
-		this.sharedUsers.add(user);
-	}
+//	public List<MapSharedUser> getSharedUsers() {
+//		return sharedUsers;
+//	}
+//	public void setSharedUsers(List<MapSharedUser> users) {
+//		this.sharedUsers = users;
+//	}
+//	public void addSharedUser(MapSharedUser user){
+//		this.sharedUsers.add(user);
+//	}
 	public User getCreator() {
 		return creator;
 	}

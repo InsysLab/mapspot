@@ -32,18 +32,18 @@
 
 			</div>
 			<div style="clear: both"></div>
-		</div>
+		</div><br/>
+		New Map
 		<div id="home-container">
-			<p>
-				<form:form method="POST" commandName="upload"	enctype="multipart/form-data">
-					Upload image file: 
-					<input type="file" name="file" />
-					<input type="submit" value="upload" />
-					<form:errors path="file" cssStyle="color: #ff0000;" />
-				</form:form>
-				
-				<button onclick="window.location='map-cancel'">Cancel</button>
-			</p>
+			Please upload an image (only accepts PNG format) <br/><br/><br/>
+			<form:form method="POST" commandName="upload"	enctype="multipart/form-data">
+				Browse:
+				<input type="file" name="file" />
+				<input type="submit" value="upload" />
+				<form:errors path="file" cssStyle="color: #ff0000;" />
+			</form:form><br/>
+			
+			<button onclick="window.location='map-cancel'">Cancel</button>
 		</div>
 	</div>
 	<div id="footer">
