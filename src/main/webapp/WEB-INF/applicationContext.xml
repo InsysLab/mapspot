@@ -53,9 +53,9 @@
     
    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-   <bean id="persistenceExceptionTranslationPostProcessor"
+<!--    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
- 
+  -->
    <aop:aspectj-autoproxy />
    
    <bean id="logAdvice" class="map.controller.LogAdvice" />

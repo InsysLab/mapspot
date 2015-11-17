@@ -9,9 +9,9 @@ import org.aspectj.lang.annotation.After;
 @Aspect
 public class LogAdvice {
 
-//	@After("execution(* map.service.UserService.*(..))")
-//	public void log(JoinPoint joinpoint) {
-//		System.out.println(new Date() + " method= " + joinpoint.getSignature().getName());
-//	}
-//	
+	@After("execution(* map.service.UserService.*(..))")
+	public void log(JoinPoint joinpoint) {
+		System.out.println(new Date() + " method= " + joinpoint.getSignature().getName());
+	}
+	
 }
