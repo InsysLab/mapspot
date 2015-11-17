@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import map.domain.Map;
 import map.domain.User;
 import map.domain.MapSharedUser;
+import map.domain.Comment;
 import map.service.MapService;
 import map.service.UserService;
 import map.service.MapSharedUserService;
+import map.service.MapCommentService;
 
 @Controller
 public class UserController {
@@ -29,6 +31,8 @@ public class UserController {
 	UserService userService;	
 	@Autowired
 	MapSharedUserService mapSharedUserService;
+	@Autowired
+	MapCommentService mapCommentService;
 	
 	@RequestMapping(value={"map-list"}, method = RequestMethod.GET)
 	public String userMaps( Model model, Principal principal, HttpServletRequest request){
@@ -118,5 +122,31 @@ public class UserController {
 		}
 		
 		return "redirect:/map-list";
+	}
+	
+	@RequestMapping(value="map-comments/{mapId}", method=RequestMethod.GET)
+	public String mapComments(@PathVariable("mapId") Integer mapId, Model model, Principal principal){
+		Map map = mapService.findMap(mapId);
+		List<Comment> comments = mapCommentService.findCommentsByMapId(mapId);
+		
+		model.addAttribute("map", map);
+		model.addAttribute("comments", comments);
+		
+		return "mapComments";
+	}
+
+	@RequestMapping(value="map-comments/{mapId}", method=RequestMethod.POST)
+	public String saveComments(@PathVariable("mapId") Integer mapId, HttpServletRequest request, Model model, Principal principal){
+		String commentText = request.getParameter("comment");
+
+		if( ! commentText.isEmpty() ){
+			Comment comment = new Comment();
+			comment.setCommentText(commentText);
+			comment.setMap(mapService.findMap(mapId));
+			comment.setUser(userService.findUserByUsername(principal.getName()));
+			mapCommentService.save(comment);
+		}
+		
+		return "redirect:/map-comments/" + mapId;
 	}
 }

@@ -40,14 +40,9 @@ public class Map {
 	@OneToMany(mappedBy="map", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<MapSpot> spots = new ArrayList<MapSpot>();
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="map_id")
+	@OneToMany(mappedBy="map", cascade=CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<Comment>();
-//
-//    @OneToMany(cascade=CascadeType.ALL)  
-//    @JoinColumn(name="msId")
-//	private List<MapSharedUser> sharedUsers = new ArrayList<MapSharedUser>();
-//	
+
 	@ManyToOne
 	@JoinColumn(name="creator")
 	private User creator;
@@ -103,15 +98,6 @@ public class Map {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-//	public List<MapSharedUser> getSharedUsers() {
-//		return sharedUsers;
-//	}
-//	public void setSharedUsers(List<MapSharedUser> users) {
-//		this.sharedUsers = users;
-//	}
-//	public void addSharedUser(MapSharedUser user){
-//		this.sharedUsers.add(user);
-//	}
 	public User getCreator() {
 		return creator;
 	}

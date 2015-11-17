@@ -26,8 +26,8 @@
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				<td>
-					<a href="<spring:url value='/login'/>">Sign-In</a> | <a
-					href="<spring:url value='/signup'/>">Sign-Up</a>
+					<a href="<spring:url value='/login'/>">Sign-In</a> | 
+					<a href="<spring:url value='/signup'/>">Sign-Up</a>
 				</td>
 			</sec:authorize>
 
@@ -52,16 +52,17 @@
 						</c:if>
 					</td>
 					<td>
-						<c:if test="${map.isBlocked == false}">No &nbsp;&nbsp;
-							<button onclick="window.location='block-map/${map.mapId}'">Block</button>
+						<c:if test="${map.isBlocked == false}">- &nbsp;&nbsp;
+							<!-- <button onclick="window.location='block-map/${map.mapId}'">Block</button>  -->
 						</c:if>
 						<c:if test="${map.isBlocked == true}">Yes &nbsp;&nbsp;
-							<button onclick="window.location='unblock-map/${map.mapId}'">Un-block</button>
+							<!-- <button onclick="window.location='unblock-map/${map.mapId}'">Un-block</button>  -->
 						</c:if>
 					</td>		
 					<td>${baseUrl}/view-map/${map.mapId}</td>			
 					<td>
 						<button onclick="window.location='share-map/${map.mapId}'">Share</button>
+						<button onclick="window.location='map-comments/${map.mapId}'">Comments</button>
 						<button onclick="window.location='delete-map/${map.mapId}'">Delete</button>
 					</td>
 				</tr>
