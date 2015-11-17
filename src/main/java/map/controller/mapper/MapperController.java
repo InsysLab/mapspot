@@ -91,7 +91,8 @@ public class MapperController {
 		if( map == null || map.getIsBlocked() || ! map.getIsPublished() ){
 			return "mapper/errorMap";
 		} else {
-		
+			//TODO:  Insert new Visit
+			
 			model.addAttribute("map", map);
 			model.addAttribute("spots", map.getSpots());
 			

@@ -54,9 +54,9 @@
 	    		    	<td><input name="name" type="text" /></td>
 	    			</tr>
 					<tr>
-						<td><label for="age">Age</label></td>
-	    				<td><input name="age" type="text" /></td>
-	    			</tr>
+						<td><label for="dateOfBirth">Date of Birth </label></td>
+	    				<td><input name="dateOfBirth" type="text" /> (yyyy-mm-dd)</td>
+	    			</tr> 
 					<tr>
 						<td><label for="email">Email</label></td>
 	    				<td><input name="email" type="text" /></td>
