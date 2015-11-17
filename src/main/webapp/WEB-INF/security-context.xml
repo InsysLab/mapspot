@@ -13,15 +13,12 @@
 		
 		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
 		<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
-		<!-- <intercept-url pattern="/student/editProfile" access="hasRole('ROLE_STUDENT')" 
-			/> <intercept-url pattern="/professor/editProfessor" access="hasRole('ROLE_PROFESSOR')" 
-			/> -->
 		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 
 		<form-login login-page="/login" default-target-url="/"
 			authentication-failure-url="/loginfailed" login-processing-url="/j_spring_security_check" />
 			
-		<access-denied-handler error-page="/403" />			
+		<!-- <access-denied-handler error-page="/403" />	 -->		
 			
 		<csrf disabled="true" />
 	</http>
@@ -36,5 +33,4 @@
         SELECT u.USERNAME, u.ROLE FROM Person u WHERE u.USERNAME=? " />
 		</authentication-provider>
 	</authentication-manager>
-
 </beans:beans>

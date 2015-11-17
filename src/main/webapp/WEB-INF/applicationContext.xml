@@ -56,7 +56,6 @@
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
  
-   <aop:config proxy-target-class="true" />
    <aop:aspectj-autoproxy />
    
    <bean id="logAdvice" class="map.controller.LogAdvice" />

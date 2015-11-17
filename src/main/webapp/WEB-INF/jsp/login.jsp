@@ -19,8 +19,8 @@
 			<div class="login-box">
 				<sec:authorize access="isAnonymous()">
 					<td>
-						<a href="<spring:url value='/login'/>">Sign-In</a> | <a
-						href="<spring:url value='/signup'/>">Sign-Up</a>
+						<a href="<spring:url value='/login'/>"><spring:message code="header.signin"/></a> | <a
+						href="<spring:url value='/signup'/>"><spring:message code="header.signup"/></a>
 					</td>
 				</sec:authorize>
 
@@ -28,7 +28,7 @@
 			<div style="clear: both"></div>
 		</div>
 		<div id="content-container">
-			<h2 id="banner">Sign-In</h2>  
+			<h2 id="banner"><spring:message code="header.signin"/></h2>  
 			<span style="color:red">${errorMessage}</span>
 			<form name="f" action="<c:url value='j_spring_security_check'/>" method="POST">
 				<table>
@@ -53,6 +53,8 @@
 			</form>
 		</div>
 	</div>
-	<div id="footer">&copy; 2015. All rights reserved.</div>			
-	</body>
+	<div id="footer">
+		Language : <a href="?language=en">English</a>|<a href="?language=fil_PH">Tagalog</a>
+		&copy; 2015. All rights reserved.
+	</div>
 </html>

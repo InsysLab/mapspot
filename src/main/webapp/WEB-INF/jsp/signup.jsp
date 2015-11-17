@@ -1,9 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,8 +27,8 @@
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<td>
-						<a href="<spring:url value='/login'/>">Sign-In</a> | <a
-						href="<spring:url value='/signup'/>">Sign-Up</a>
+						<a href="<spring:url value='/login'/>"><spring:message code="header.signin"/></a> | <a
+						href="<spring:url value='/signup'/>"><spring:message code="header.signup"/></a>
 					</td>
 				</sec:authorize>
 
@@ -38,7 +36,7 @@
 			<div style="clear: both"></div>
 		</div>
 		<div id="content-container" style="margin-left:100px;">
-	    	<h2>Please sign up</h2>
+	    	<h2><spring:message code="user.signup"/></h2>
 	    	<form action="<spring:url value="/signup"></spring:url>" method="post">
 	    		<table>
                 	<tr>
@@ -50,11 +48,11 @@
 	    				<td><input name='password'  type="password" value="" /></td>
 	    			</tr>
 					<tr>
-						<td><label for="name">Full Name</label></td>
+						<td><label for="name"><spring:message code="user.name"/></label></td>
 	    		    	<td><input name="name" type="text" /></td>
 	    			</tr>
 					<tr>
-						<td><label for="dateOfBirth">Date of Birth </label></td>
+						<td><label for="dateOfBirth"><spring:message code="user.birth"/> </label></td>
 	    				<td><input name="dateOfBirth" type="text" /> (yyyy-mm-dd)</td>
 	    			</tr> 
 					<tr>
@@ -67,6 +65,9 @@
 	      	</form>
 		</div>
 	</div>
-	<div id="footer">&copy; 2015. All rights reserved.</div>
+	<div id="footer">
+		Language : <a href="?language=en">English</a>|<a href="?language=fil_PH">Tagalog</a>
+		&copy; 2015. All rights reserved.
+	</div>
 </body>
 </html>
