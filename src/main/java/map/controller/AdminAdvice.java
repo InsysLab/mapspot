@@ -2,6 +2,7 @@ package map.controller;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -17,23 +18,25 @@ import com.google.common.cache.Cache;
 
 @Aspect
 public class AdminAdvice {
+	
+	final static Logger logger = Logger.getLogger(AdminAdvice.class);
 
 	@After("execution(* map.service.AdminUserService.*(..))")
 	public void log(JoinPoint joinpoint) {
-		System.out.println(new Date() +" Entering Method: " + joinpoint.getSignature().getName());
+		logger.info(new Date() +" Entering Method: " + joinpoint.getSignature().getName());
 		Object[] args = joinpoint.getArgs();
 
 		for (Object obj : args) {
-			System.out.println("Arg : " + obj.getClass().getName() + " - " + obj.toString());
+			logger.info("Arg : " + obj.getClass().getName() + " - " + obj.toString());
 		}
 	}
 	
 	@AfterThrowing("execution(* map.service.AdminUserService.*(..))")
 	public void exceptionHandling(JoinPoint joinpoint) {
-		System.out.println(new Date() +" Exception caused at Method: " + joinpoint.getSignature().getName());
+		logger.error(new Date() +" Exception caused at Method: " + joinpoint.getSignature().getName());
 		Object[] args = joinpoint.getArgs();
 		for (Object obj : args) {
-			System.out.println("Arg : " + obj.getClass() + " - " + obj.toString());
+			logger.error("Arg : " + obj.getClass() + " - " + obj.toString());
 		}
 	}
 }
