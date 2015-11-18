@@ -16,7 +16,8 @@
 		<intercept-url pattern="/map-image" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/login-failed" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		
-		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
 		
 		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/*map*" access="hasRole('ROLE_USER')" />
