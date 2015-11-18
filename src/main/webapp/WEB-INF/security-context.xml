@@ -6,17 +6,26 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
+
+	<global-method-security secured-annotations="enabled" />
+	
+	<http pattern="/home" security="none" />
+	
 	<http auto-config="true">
 		<intercept-url pattern="/view-map" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/map-image" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/login-failed" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		
-		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
-		<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
 		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
-
+		
+		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/*map*" access="hasRole('ROLE_USER')" />
+	
 		<form-login login-page="/login" default-target-url="/"
-			authentication-failure-url="/loginfailed" login-processing-url="/j_spring_security_check" />
+			authentication-failure-url="/loginfailed" 
+			login-processing-url="/j_spring_security_check" />
+		
+		<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
 			
 		<access-denied-handler error-page="/403" />			
 			
@@ -33,4 +42,5 @@
         SELECT u.USERNAME, u.ROLE FROM Person u WHERE u.USERNAME=? " />
 		</authentication-provider>
 	</authentication-manager>
+
 </beans:beans>

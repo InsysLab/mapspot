@@ -35,7 +35,7 @@
 		</div><br/>
 		New Map
 		<div id="home-container">
-			Please upload an image (only accepts PNG format) <br/><br/><br/>
+			Please upload an image file. <br/><br/><br/>
 			<form:form method="POST" commandName="upload"	enctype="multipart/form-data">
 				Browse:
 				<input type="file" name="file" />

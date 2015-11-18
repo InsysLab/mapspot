@@ -12,8 +12,11 @@ public class FileValidator implements Validator {
 
 	public void validate(Object obj, Errors errors) {
 		FileUpload file = (FileUpload) obj;
-		  if (file.getFile().getSize() == 0) {
-		    errors.rejectValue("file", "valid.file");
-		  }
+
+		String type = file.getFile().getContentType();
+	    type = type.split("/")[0];
+        if( ! type.equals("image") || file.getFile().getSize() == 0 ){
+        	errors.rejectValue("file", "valid.file");
+        }
 	}
 }

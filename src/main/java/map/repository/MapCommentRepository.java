@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import map.domain.Comment;
-import map.domain.MapSpot;
 
 @Repository
 public interface MapCommentRepository extends CrudRepository<Comment, Integer>{

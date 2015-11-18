@@ -1,17 +1,13 @@
 package map.controller.mapper;
  
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,11 +19,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import map.domain.FileUpload;
 import map.controller.validator.FileValidator;
@@ -44,10 +37,10 @@ public class FileUploadController{
 	@Autowired
 	FileValidator validator;
 
-//	@InitBinder
-//	private void initBinder(WebDataBinder binder) {
-//		binder.setValidator(validator);
-//	}
+	@InitBinder
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(validator);
+	}
 
 	@RequestMapping(value="map-upload", method = RequestMethod.GET)
 	public String getForm(Model model) {
@@ -58,7 +51,11 @@ public class FileUploadController{
 	}
 	
 	@RequestMapping(value="map-upload", method = RequestMethod.POST)
-	public String fileUploaded(FileUpload file, HttpSession session) {
+	public String fileUploaded(@Validated FileUpload file, BindingResult result, HttpSession session) {
+		
+		if(result.hasErrors()){
+			return "redirect:map-cancel";
+		}
 		
 		MultipartFile multipartFile = file.getFile();
 		String fileName = multipartFile.getOriginalFilename();
@@ -87,7 +84,7 @@ public class FileUploadController{
 	}	
 	
 	@ResponseBody	
-	@RequestMapping(value = "/map-image/{mapId}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
+	@RequestMapping(value = "/map-image/{mapId}", method = RequestMethod.GET, produces = MediaType.ALL_VALUE)
 	public byte[] getImage(@PathVariable("mapId") Integer mapId, HttpServletRequest request)  throws Exception {
 		Map map = mapService.findMap(mapId);
 		Path path = Paths.get("C:/mapspot/" + mapId + "/" + map.getPhoto());
@@ -101,16 +98,5 @@ public class FileUploadController{
 		mapService.deleteMapById(map.getMapId());
 		return "redirect:/map-list";
 	}	
-	
-//	public String fileUploaded(Model model, @Validated File file, BindingResult result) {
-//
-//		String returnVal = "redirect: mapper/edit";
-//		if (result.hasErrors()) {
-//			returnVal = "upload";
-//		} else {			
-//			MultipartFile multipartFile = file.getFile();
-//		}
-//		return returnVal;
-//	}
 	
 }
