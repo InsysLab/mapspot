@@ -59,5 +59,6 @@
    <aop:aspectj-autoproxy />
    
    <bean id="logAdvice" class="map.controller.LogAdvice" />
+    <bean id="adminAdvice" class="map.controller.AdminAdvice" />
      
 </beans>
