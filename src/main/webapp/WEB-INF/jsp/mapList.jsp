@@ -38,7 +38,7 @@
 	<div id="content-container">
 		<table style="min-width:500px;">
 			<thead>
-				<tr><th>Description</th><th>Published</th><th>Blocked</th><th>URL</th><th></th></tr>
+				<tr><th>Description</th><th>Published</th><th>Blocked</th><th>Visits</th><th>URL</th><th></th></tr>
 			</thead>
 			<c:forEach var="map" items="${maps}">
 				<tr>
@@ -59,6 +59,7 @@
 							<!-- <button onclick="window.location='unblock-map/${map.mapId}'">Un-block</button>  -->
 						</c:if>
 					</td>		
+					<td>${map.visits} &nbsp;&nbsp;<button onclick="window.location='map-visits/${map.mapId}'">View</button></td>
 					<td>${baseUrl}/view-map/${map.mapId}</td>			
 					<td>
 						<button onclick="window.location='share-map/${map.mapId}'">Share</button>

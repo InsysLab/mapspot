@@ -3,6 +3,7 @@ package map.controller.mapper;
 import java.security.Principal;
 import javax.servlet.http.HttpSession;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -16,25 +17,26 @@ import org.springframework.http.MediaType;
 
 import map.domain.User;
 import map.domain.Map;
+import map.domain.MapVisit;
 import map.domain.MapSpot;
 import map.service.MapService;
 import map.service.MapSpotService;
 import map.service.UserService;
+import map.service.MapVisitService;
 
 @Controller
 public class MapperController {
 
 	@Autowired
-	MapService mapService;
-	
+	MapService mapService;	
 	@Autowired
-	ServletContext servletContext;
-	
+	ServletContext servletContext;	
 	@Autowired
 	MapSpotService mapSpotService;
-	
 	@Autowired
 	UserService userService;
+	@Autowired
+	MapVisitService mapVisitService;
 	
 	@RequestMapping(value={"create-map"}, method = RequestMethod.GET)
 	public String createMap(Model model, HttpSession session, Principal principal){
@@ -85,13 +87,17 @@ public class MapperController {
     }
 		
 	@RequestMapping(value="view-map/{mapId}", method=RequestMethod.GET)
-	public String viewPublicMap(@PathVariable("mapId") Integer mapId, Model model){
+	public String viewPublicMap(@PathVariable("mapId") Integer mapId, Model model, HttpServletRequest request){
 		Map map = mapService.findMap(mapId);
 		
 		if( map == null || map.getIsBlocked() || ! map.getIsPublished() ){
 			return "mapper/errorMap";
 		} else {
-			//TODO:  Insert new Visit
+			
+			MapVisit visit = new MapVisit();
+			visit.setMap(map);
+			visit.setIpAddress(request.getRemoteAddr());
+			mapVisitService.save(visit);
 			
 			model.addAttribute("map", map);
 			model.addAttribute("spots", map.getSpots());

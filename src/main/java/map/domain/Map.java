@@ -11,13 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.CascadeType;
 import javax.persistence.PrePersist;
+import javax.persistence.Transient;
 
 @Entity
 public class Map {
@@ -30,6 +29,9 @@ public class Map {
 	private String description;
 	private String permalink;
 	private String photo;
+	
+	@Transient
+	private int visits;
 	
 	@Column(name="published")
 	private Boolean isPublished;
@@ -122,4 +124,13 @@ public class Map {
 	public void addSpot(MapSpot spot){
 		this.spots.add(spot);
 	}
+
+	public int getVisits() {
+		return visits;
+	}
+
+	public void setVisits(int visits) {
+		this.visits = visits;
+	}
+	
 }

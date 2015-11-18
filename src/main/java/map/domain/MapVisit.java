@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,8 +28,13 @@ public class MapVisit {
 	public Map map;
 	
 	@Column(name="date_visited")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date dateVisited;
+	
+	@PrePersist
+	protected void onCreate() {
+	    this.dateVisited = new Date();
+	}	
 	
 	public String getIpAddress() {
 		return ipAddress;

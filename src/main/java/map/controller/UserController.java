@@ -2,8 +2,6 @@ package map.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,11 @@ import map.domain.Map;
 import map.domain.User;
 import map.domain.MapSharedUser;
 import map.domain.Comment;
+import map.domain.MapVisit;
 import map.service.MapService;
 import map.service.UserService;
 import map.service.MapSharedUserService;
+import map.service.MapVisitService;
 import map.service.MapCommentService;
 
 @Controller
@@ -33,6 +33,8 @@ public class UserController {
 	MapSharedUserService mapSharedUserService;
 	@Autowired
 	MapCommentService mapCommentService;
+	@Autowired
+	MapVisitService mapVisitService;	
 	
 	@RequestMapping(value={"map-list"}, method = RequestMethod.GET)
 	public String userMaps( Model model, Principal principal, HttpServletRequest request){
@@ -41,6 +43,11 @@ public class UserController {
 		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 		
 		List<MapSharedUser> sharedMapUsers = mapSharedUserService.findMapSharedUsersByUserId(user.getPersonId());
+		
+		for(Map m : mapList){
+			List<MapVisit> visits = mapVisitService.findMapVisitsByMapId(m.getMapId());
+			m.setVisits(visits.size());
+		}
 		
 		model.addAttribute("maps", mapList);
 		model.addAttribute("sharedMaps", sharedMapUsers);
@@ -148,5 +155,16 @@ public class UserController {
 		}
 		
 		return "redirect:/map-comments/" + mapId;
+	}
+	
+	@RequestMapping(value="map-visits/{mapId}", method=RequestMethod.GET)
+	public String mapVisits(@PathVariable("mapId") Integer mapId, Model model){
+		Map map = mapService.findMap(mapId);
+		List<MapVisit> visits = mapVisitService.findMapVisitsByMapId(mapId);
+		
+		model.addAttribute("map", map);
+		model.addAttribute("visits", visits);
+		
+		return "mapVisits";
 	}
 }
