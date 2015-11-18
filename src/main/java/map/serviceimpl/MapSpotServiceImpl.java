@@ -31,6 +31,7 @@ public class MapSpotServiceImpl implements MapSpotService{
 	
 	public void deleteMapSpotById(Integer Id){
 		MapSpot spot = mapSpotRepository.findOne(Id);
+		spot.setMap(null);
 		mapSpotRepository.delete(spot);
 	}
 }

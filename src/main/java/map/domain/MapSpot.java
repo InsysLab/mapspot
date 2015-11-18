@@ -48,5 +48,11 @@ public class MapSpot {
 	public void setMap(Map map) {
 		this.map = map;
 	}
+	public int getSpotId() {
+		return spotId;
+	}
+	public void setSpotId(int spotId) {
+		this.spotId = spotId;
+	}
 	
 }

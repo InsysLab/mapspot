@@ -59,9 +59,10 @@
 				
 				<c:set var="count" value="1" scope="page" />
 				<c:forEach var="spot" items = "${spots}">
-					<div>
+					<div id="spot-${spot.spotId}">
 						<label for="spot-number"><c:out value="${count}" /></label>
-						<input type="text" value="${spot.description}" style="width:200px" data-location="${spot.location}"/>
+						<input type="text" value="${spot.description}" onchange="updateSpot(this)" style="width:200px" data-location="${spot.location}" data-id="${spot.spotId}" />
+						<button onclick="deleteSpot(${spot.spotId})">X</button>
 					</div>
 					<c:set var="count" value="${count + 1}" scope="page"/>
 				</c:forEach>		
@@ -103,7 +104,7 @@
 			});	
 		}
 		
-		spot++;
+		//spot++;
 		var iconWidth = 0;
 		var iconHeight = 0;
 		
@@ -130,7 +131,7 @@
 		    
 		    var spotDescription = prompt("Enter spot description", "");
 		      
-		    if(spotDescription){
+		    if(spotDescription !== null){
 		    	$("#"+spotId).wrap("<a class=\"spot\" style=\"cursor:pointer\" title=\"" + spotDescription + "\"></a>");	
 		    	
 		    	$("#spotTemplate").clone()
@@ -155,14 +156,13 @@
 					timeout : 100000,
 					success : function(data) {
 						console.log("Map spot created: ", data);
+						location.reload();
 					},
 					error : function(e) {
 						console.log("ERROR: ", e);
-						display(e);
 					},
 					done : function(e) {
 						console.log("DONE");
-						enableSearchButton(true);
 					}
 				});
 		    	
@@ -188,15 +188,58 @@
 				},
 				error : function(e) {
 					console.log("ERROR: ", e);
-					display(e);
 				},
 				done : function(e) {
 					console.log("DONE");
-					enableSearchButton(true);
 				}
 			});
 	    })
 	});
+	
+	function updateSpot(obj){
+    	var spot = {};
+    	spot["description"] = $(obj).val();
+    	var spotId = $(obj).attr("data-id");
+    	
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "../update-spot/"+spotId,
+			data : JSON.stringify(spot),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+				console.log("Spot updated: ");
+			},
+			error : function(e) {
+				console.log("ERROR: ", e);
+			},
+			done : function(e) {
+				console.log("DONE");
+			}
+		});		
+	}
+	
+	function deleteSpot(id){
+		$.ajax({
+			type : "DELETE",
+			contentType : "application/json",
+			url : "../delete-spot/"+id,
+			timeout : 100000,
+			success : function(data) {
+				console.log("Spot deleted: ");
+				$("#spot-"+id).detach();
+				$("#spot"+id).detach();
+				location.reload();
+			},
+			error : function(e) {
+				console.log("ERROR: ", e);
+			},
+			done : function(e) {
+				console.log("DONE");
+			}
+		});			
+	}
 </script>
 </body>
 </html>

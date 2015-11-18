@@ -85,6 +85,26 @@ public class MapperController {
 		
 		return spot;
     }
+	
+	@ResponseBody
+	@RequestMapping(value="delete-spot/{id}", method = RequestMethod.DELETE)
+	public String deleteMapSpot(@PathVariable("id") Integer id){
+		mapSpotService.deleteMapSpotById(id);
+		return "";
+	}	
+	
+	@ResponseBody
+	@RequestMapping(value="update-spot/{id}", method=RequestMethod.POST, 
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public MapSpot updateMapSpot(@PathVariable("id") Integer id, @RequestBody MapSpot s) {
+		MapSpot spot = mapSpotService.findMapSpot(id);
+		
+		spot.setDescription(s.getDescription());
+		mapSpotService.save(spot);
+		spot.setMap(null);
+		
+		return spot;
+    }	
 		
 	@RequestMapping(value="view-map/{mapId}", method=RequestMethod.GET)
 	public String viewPublicMap(@PathVariable("mapId") Integer mapId, Model model, HttpServletRequest request){
