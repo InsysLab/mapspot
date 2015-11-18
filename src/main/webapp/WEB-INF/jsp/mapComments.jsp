@@ -21,8 +21,8 @@
 
 		<div class="login-box">
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-				<a href="map-list">Maps</a> | 
-				<a href="create-map">Create</a> | 
+				<a href="../map-list">Maps</a> | 
+				<a href="../create-map">Create</a> | 
 				<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">

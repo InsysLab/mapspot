@@ -171,9 +171,10 @@
 	    });
 	    
 	    $("#description").on("blur", function(){
+	    	var mapId = $("#mapId").val();
 	    	var map = {};
 	    	map["description"] = $(this).val();
-	    	var mapId = $("#mapId").val();
+	    	map["mapId"] = mapId;
 	    	
 			$.ajax({
 				type : "POST",

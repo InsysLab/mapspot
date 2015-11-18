@@ -29,6 +29,7 @@ public abstract class Person {
 	@NotEmpty
 	private String name;
 	private String photo;
+	@NotEmpty
 	private String email;
 	// private String password;
 

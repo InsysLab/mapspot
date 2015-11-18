@@ -35,6 +35,7 @@
 			</div>
 			<div style="clear: both"></div>
 		</div>
+		<h3>${success}</h3>
 		<div id="home-container">
 			<div style="float: left">
 				<img src="<spring:url value="/resources/images/samplemap/sample1.png"/>" />

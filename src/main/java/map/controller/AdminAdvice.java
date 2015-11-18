@@ -11,9 +11,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.cache.Cache;
-
-import map.logging.ILogger;
-import map.logging.Logger;
+//
+//import map.logging.ILogger;
+//import map.logging.Logger;
 
 @Aspect
 public class AdminAdvice {
