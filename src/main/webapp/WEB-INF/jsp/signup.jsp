@@ -1,12 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Home</title>
 <style type="text/css">
 @import url(resources/css/main.css);
@@ -73,7 +72,8 @@
 		</div>
 	</div>
 	<div id="footer">
-		Language : <a href="?language=en">English</a>|<a href="?language=fil_PH">Tagalog</a>
+		Language : <a href="?language=en">English</a>|<a href="?language=fil_PH">Tagalog</a> | 
+		<a href="?language=nep_NP">Nepali</a>
 		&copy; 2015. All rights reserved.
 	</div>
 </body>
