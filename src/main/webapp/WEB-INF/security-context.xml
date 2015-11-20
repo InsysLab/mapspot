@@ -20,6 +20,7 @@
 		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
 		
 		<intercept-url pattern="/secured" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/map-edit/*" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/*map*" access="hasRole('ROLE_USER')" />
 	
 		<form-login login-page="/login" default-target-url="/"
