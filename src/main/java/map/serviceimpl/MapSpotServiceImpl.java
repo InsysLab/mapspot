@@ -10,6 +10,9 @@ import map.service.MapSpotService;
 import map.domain.MapSpot;
 import map.repository.MapSpotRepository;
 
+/*
+ * @author Mark Pit
+ */
 @Service
 @Transactional
 public class MapSpotServiceImpl implements MapSpotService{
