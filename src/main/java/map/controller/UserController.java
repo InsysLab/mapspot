@@ -22,6 +22,9 @@ import map.service.MapSharedUserService;
 import map.service.MapVisitService;
 import map.service.MapCommentService;
 
+/*
+ * @author Mark Pit
+ */
 @Controller
 public class UserController {
 
