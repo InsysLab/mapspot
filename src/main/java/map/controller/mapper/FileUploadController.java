@@ -28,6 +28,9 @@ import map.controller.validator.FileValidator;
 import map.domain.Map;
 import map.service.MapService;
 
+/* 
+ * @author Mark Pit
+ */
 @Controller
 public class FileUploadController{
 
