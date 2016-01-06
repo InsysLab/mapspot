@@ -24,6 +24,9 @@ import map.service.MapSpotService;
 import map.service.UserService;
 import map.service.MapVisitService;
 
+/* 
+ * @author Mark Pit
+ */
 @Controller
 public class MapperController {
 
