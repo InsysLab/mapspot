@@ -8,6 +8,9 @@ import org.aspectj.lang.annotation.After;
 
 import org.apache.log4j.Logger;
 
+/*
+ * @author Mark Pit
+ */
 @Aspect
 public class LogAdvice {
 
