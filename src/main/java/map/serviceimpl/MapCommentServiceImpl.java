@@ -10,6 +10,9 @@ import map.domain.Comment;
 import map.service.MapCommentService;
 import map.repository.MapCommentRepository;
 
+/*
+ * @author Mark Pit
+ */
 @Service
 @Transactional
 public class MapCommentServiceImpl implements MapCommentService{
